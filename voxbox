@@ -1,0 +1,38 @@
+#!/usr/bin/env python
+"""
+VoxBox - IoT project for Intel Edison
+
+https://github.com/Dominiol/VoxBox
+"""
+
+import config, imp, os, subprocess
+
+home_path = os.getcwd()
+loaded_modules = []
+
+def load_all_modules():
+    print 'Loading modules...'
+    
+    for file in os.listdir('modules'):
+        if file.endswith('.py'):
+            module_name = os.path.basename(file)[:-3]
+            filename = os.path.join(home_path, 'modules', file)
+            module = imp.load_source(module_name, filename)
+            
+            for name, obj in vars(module).iteritems():
+                if hasattr(obj, 'pattern'):
+                    loaded_modules.append(obj)
+                    print '%s loaded' % (name)
+    
+    print '%s modules loaded!' % (len(loaded_modules))
+
+def pull_latest_version():
+    print "Attempt to pull latest VoxBox version from GitHub..."
+    output = subprocess.check_output(["git", "pull"])
+    print output
+
+def main():
+    load_all_modules()
+
+if __name__ == '__main__': 
+   main()
