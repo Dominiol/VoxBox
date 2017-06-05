@@ -7,6 +7,7 @@ https://github.com/Dominiol/VoxBox
 
 import config, git, imp, os, subprocess, sys
 from devices import LcdDisplay
+from time import sleep
 
 home_path = os.getcwd()
 loaded_modules = []
@@ -30,12 +31,11 @@ def load_all_modules():
 def main():
     load_all_modules()
     lcdDisplay.writeText('Working!')
-    lcdDisplay.changeColor(0, 255, 255)
-    lcdDisplay.changeColor(255, 128, 0)
-    lcdDisplay.changeColor(0, 0, 0)
-    lcdDisplay.changeColor(255, 255, 255)
-    lcdDisplay.darken(0.5)
-    lcdDisplay.lighten(0.5)
+    lcdDisplay.changeColor(255, 0, 0)
+    sleep(1)
+    lcdDisplay.changeColor(0, 255, 0)
+    sleep(1)
+    lcdDisplay.changeColor(0, 0, 255)
     
     while True:
         # main loop
