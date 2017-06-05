@@ -29,7 +29,7 @@ class LcdDisplay():
         elif b == self.color[2]: changing_direction[2] = 0
         else: changing_direction[2] = -1
         
-        while r != self.color[0] and g != self.color[1] and b != self.color[2]:
+        while not (r == self.color[0] and g == self.color[1] and b == self.color[2]):
             self.color[0] = self.color[0] - changing_direction[0]
             self.color[1] = self.color[1] - changing_direction[1]
             self.color[2] = self.color[2] - changing_direction[2]
