@@ -6,6 +6,7 @@ https://github.com/Dominiol/VoxBox
 """
 
 import config, imp, os, subprocess
+import git, sys
 
 home_path = os.getcwd()
 loaded_modules = []
@@ -26,12 +27,22 @@ def load_all_modules():
     
     print '%s modules loaded!' % (len(loaded_modules))
 
-def pull_latest_version():
-    print "Attempt to pull latest VoxBox version from GitHub..."
-    output = subprocess.check_output(["git", "pull"])
-    print output
+def check_for_updates():
+    repo = git.Repo()
+    commits_behind = repo.iter_commits('master..origin/master')
+    
+    if commits_behind == 0:
+        print "Everything is up to date"
+        return
+    else:
+        print "There are %s commits behind. Updating..." % (commits_behind)
+        o = repo.remotes.origin
+        o.pull()
+        print "Updated! Please run script again..."
+        sys.exit(0)
 
 def main():
+    check_for_updates()
     load_all_modules()
 
 if __name__ == '__main__': 
