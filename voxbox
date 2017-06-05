@@ -30,12 +30,13 @@ def load_all_modules():
 def check_for_updates():
     repo = git.Repo()
     commits_behind = repo.iter_commits('master..origin/master')
+    count = sum(1 for c in commits_ahead)
     
-    if commits_behind == 0:
+    if count == 0:
         print "Everything is up to date"
         return
     else:
-        print "There are %s commits behind. Updating..." % (commits_behind)
+        print "There are %s commits behind. Updating..." % (count)
         o = repo.remotes.origin
         o.pull()
         print "Updated! Please run script again..."
