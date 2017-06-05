@@ -5,15 +5,13 @@ VoxBox - IoT project for Intel Edison
 https://github.com/Dominiol/VoxBox
 """
 
-import config, imp, os, subprocess
-import git, sys
+import config, git, imp, os, subprocess, sys
 
 home_path = os.getcwd()
 loaded_modules = []
 
 def load_all_modules():
     print 'Loading modules...'
-    
     for file in os.listdir('modules'):
         if file.endswith('.py'):
             module_name = os.path.basename(file)[:-3]
@@ -24,7 +22,6 @@ def load_all_modules():
                 if hasattr(obj, 'pattern'):
                     loaded_modules.append(obj)
                     print '%s loaded' % (name)
-    
     print '%s modules loaded!' % (len(loaded_modules))
 
 def main():
