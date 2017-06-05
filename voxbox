@@ -6,9 +6,12 @@ https://github.com/Dominiol/VoxBox
 """
 
 import config, git, imp, os, subprocess, sys
+from devices import LcdDisplay
 
 home_path = os.getcwd()
 loaded_modules = []
+
+lcdDisplay = LcdDisplay()
 
 def load_all_modules():
     print 'Loading modules...'
@@ -26,6 +29,17 @@ def load_all_modules():
 
 def main():
     load_all_modules()
+    lcdDisplay.writeText('Working!')
+    lcdDisplay.changeColor(0, 255, 255)
+    lcdDisplay.changeColor(255, 128, 0)
+    lcdDisplay.changeColor(0, 0, 0)
+    lcdDisplay.changeColor(255, 255, 255)
+    lcdDisplay.darken(0.5)
+    lcdDisplay.lighten(0.5)
+    
+    while True:
+        # main loop
+        pass
 
 if __name__ == '__main__': 
    main()
